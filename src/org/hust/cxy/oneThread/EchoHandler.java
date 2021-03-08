@@ -23,6 +23,7 @@ public class EchoHandler implements Runnable{
             CharsetDecoder decoder=charset.newDecoder();
             CharBuffer charBuffer=decoder.decode(byteBuffer);
             System.out.println(charBuffer.toString());
+            byteBuffer.clear();
         }
     }
     @Override

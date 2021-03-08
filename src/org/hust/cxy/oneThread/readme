@@ -1,0 +1,9 @@
+1、想通过SocketChannel.write()传数据，得先把数据写入ByteBuffer
+数据-》byte[]->bytebuffer(通过静态函数wrap())->write
+我之前服务器翻译不出客户端得消息，就是因为没用wrap()，而是用得put()
+2、从bytebuffer中读数据，要调用CharsetDecoder来将bytebuffer翻译为字符，再转为字符串。
+其实客户端如果发送CharBuffer就不用解码为字符了。
+3、总体架构
+将父channel注册进选择器，并将key对应得handler绑上去，轮询选择器，有事件就调用事件得handler.run().
+如果是父channel的handler，就run(将产生的子channel注册进选择器，并绑上子channel的handler)。这样在下次轮询时，如果发现的是
+子channel,调用run()刚好执行的是子channel的run()。
