@@ -7,3 +7,5 @@
 将父channel注册进选择器，并将key对应得handler绑上去，轮询选择器，有事件就调用事件得handler.run().
 如果是父channel的handler，就run(将产生的子channel注册进选择器，并绑上子channel的handler)。这样在下次轮询时，如果发现的是
 子channel,调用run()刚好执行的是子channel的run()。
+4、经过测试，会有粘包问题。
+可能需要参考netty解决粘包问题的方案。(netty为什么要解决，解决到了什么程度?)
